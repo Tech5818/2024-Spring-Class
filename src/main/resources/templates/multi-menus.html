@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        list-style: none;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .main-menu {
+        display: flex;
+
+        > .main-menu-item {
+          > a {
+            background: black;
+            color: white;
+          }
+          &:hover {
+            > a {
+              font-weight: bold;
+            }
+
+            > .sub-menu {
+              height: calc(100% - 45px);
+            }
+          }
+          > .sub-menu {
+            overflow: hidden;
+            height: 0;
+            transition: height 0.3s;
+
+            > .sub-menu-item {
+              > a {
+                background: #ddd;
+                color: #333;
+                transition: .2s;
+
+                &:hover {
+                  background: black;
+                  color: white;
+                  font-weight: bold;
+                }
+              }
+            }
+          }
+        }
+      }
+
+
+
+      a {
+        display: flex;
+        padding: 12px 24px;
+        justify-content: center;
+        transition: .3s;
+      }
+
+
+    </style>
+</head>
+<body>
+  <ul class="main-menu">
+    <li th:each="rootMenu: ${rootMenus}" class="main-menu-item">
+      <a th:text="${rootMenu.getName()}" href="#"></a>
+      <ul class="sub-menu">
+        <li th:each="subMenu: ${rootMenu.getMenus()}" class="sub-menu-item">
+          <a th:text="${subMenu.getName()}" href="#"></a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</body>
+</html>
