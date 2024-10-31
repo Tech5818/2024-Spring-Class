@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lotteria</title>
+    <link rel="stylesheet" th:href="@{/styles/font.css}" />
+    <link rel="stylesheet" th:href="@{/styles/normalize.css}" />
+    <link rel="stylesheet" th:href="@{/styles/lotteria.css}" />
+    <script th:src="@{/scripts/lotteria-example.js}" defer></script>
+</head>
+<body>
+    <header class="title-box wrap-box">
+        <h3 class="inner-box">롯데리아</h3>
+    </header>
+    <article class="wrap-box">
+        <section class="inner-box tab-box">
+            <label aria-label="추천메뉴 탭" role="tab">
+                <span>추천메뉴</span>
+                <input checked="checked" hidden="hidden" name="tab-content" type="radio" />
+            </label>
+            <label aria-label="전체메뉴 탭" role="tab">
+                <span>전체메뉴</span>
+                <input hidden="hidden" name="tab-content" type="radio" />
+            </label>
+            <label>
+                <span>이름</span>
+                <input id="search-hamburger" class="search-field" type="text"  />
+            </label>
+        </section>
+        <section class="inner-box list-box">
+<!--            <div class="hamburger-box">-->
+<!--                <img class="hamburger-image" alt="데리버거" src="/images/데리버거.png" />-->
+<!--                <p class="hamburger-data hamburger-name">데리버거</p>-->
+<!--                <p class="hamburger-data hamburger-price">3,500원</p>-->
+<!--            </div>-->
+        </section>
+    </article>
+</body>
+</html>
