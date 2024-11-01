@@ -1,5 +1,6 @@
 package kr.hs.sdh.workbook2.entity;
 
+import java.beans.ConstructorProperties;
 import java.util.Objects;
 
 public class Hamburger {
@@ -9,6 +10,13 @@ public class Hamburger {
     private boolean isNew;
     private boolean isRecommended;
 
+    @ConstructorProperties(value = {
+            "name",
+            "price",
+            "imagePath",
+            "isNew",
+            "isRecommended"
+    })
     public Hamburger(String name, int price, String imagePath, boolean isNew, boolean isRecommended) {
         this.name = name;
         this.price = price;
@@ -16,8 +24,6 @@ public class Hamburger {
         this.isNew = isNew;
         this.isRecommended = isRecommended;
     }
-
-    public Hamburger() {}
 
     public String getName() {
         return name;

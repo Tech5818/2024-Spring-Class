@@ -4,6 +4,11 @@ const pageAfterLoaded = () => {
 
     const SearchInput = document.getElementById("search-hamburger")
 
+    const OpenAddMenuModal = document.getElementById("open-add-menu-modal")
+
+    const CloseAddMenuModal = document.getElementById("close-modal")
+
+    const ModalBox = document.querySelector("dialog")
 
     // globalVariable
 
@@ -11,7 +16,7 @@ const pageAfterLoaded = () => {
         searchMenu = encodeURIComponent(searchMenu)
 
         const url = `lotteria-menus?hamburgerName=${searchMenu}`
-        console.log(url)
+
         hamburgerMenus =
             await fetch(url)
                 .then(data => data.json());
@@ -61,7 +66,7 @@ const pageAfterLoaded = () => {
     const painMenus = async (searchMenu = "") => {
         const hamburgerMenus =  await getHamburgerMenus(searchMenu);
 
-        ListBox.innerHTML = ''
+        ListBox.replaceChildren()
 
         hamburgerMenus.forEach(hamburgerMenu => {
             const menu = createHamburgerBox(hamburgerMenu.imagePath, hamburgerMenu.name, hamburgerMenu.price)
@@ -76,6 +81,24 @@ const pageAfterLoaded = () => {
 
         painMenus(searchText)
     })
+
+    OpenAddMenuModal.addEventListener("click", () => {
+        ModalBox.showModal()
+    })
+
+    CloseAddMenuModal.addEventListener("click", () => {
+        ModalBox.close()
+    })
+
+    ModalBox.addEventListener("click", () => {
+        ModalBox.close()
+    }, false)
+
+    document.querySelector(".modal-container").addEventListener("click", e => {
+        e.stopImmediatePropagation()
+    })
+
+
 }
 
 
