@@ -57,7 +57,7 @@ body {
 .list-box {
     display: grid;
     column-gap: 35px;
-    row-gap: 40px;
+    row-gap: 20px;
     grid-template-columns: repeat(3, 1fr);
 
     & .hamburger-image {
@@ -92,6 +92,18 @@ body {
 
     & .hamburger-recommend {
         
+    }
+
+    & .hamburger-info-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    & .hamburger-name-price-box {
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
     }
 }
 

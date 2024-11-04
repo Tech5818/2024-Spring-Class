@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Repository
@@ -20,6 +22,8 @@ public final class LotteriaHamburgerRepository implements HamburgerRepository, I
 
     private Set<Hamburger> hamburgers;
 
+    private Set<Hamburger> deletedHamburgers;
+
     public LotteriaHamburgerRepository(final ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
@@ -31,6 +35,8 @@ public final class LotteriaHamburgerRepository implements HamburgerRepository, I
 
             this.hamburgers = this.objectMapper.readValue(inputStream, hamburgerTypeReference);
         }
+
+        this.deletedHamburgers = new HashSet<>(this.hamburgers.size());
     }
 
     @Override
@@ -38,9 +44,14 @@ public final class LotteriaHamburgerRepository implements HamburgerRepository, I
         return this.hamburgers;
     }
 
+
+
     @Override
     public void saveHamburger(Hamburger hamburger) {
-        this.deleteHamburger(hamburger);
+
+        if (this.hamburgers.contains(hamburger)) {
+            this.hamburgers.remove(hamburger);
+        }
         this.hamburgers.add(hamburger);
     }
 
@@ -48,11 +59,11 @@ public final class LotteriaHamburgerRepository implements HamburgerRepository, I
     public void deleteHamburger(Hamburger hamburger) {
         // 1
         this.hamburgers.removeIf(beforeHamburger -> beforeHamburger.equals(hamburger));
+        this.deletedHamburgers.add(hamburger);
 
         // 2
-        if (this.hamburgers.contains(hamburger)) {
-            this.hamburgers.remove(hamburger);
-        }
+//        if (this.hamburgers.contains(hamburger)) {
+//            this.hamburgers.remove(hamburger);
+//        }
     }
-
 }

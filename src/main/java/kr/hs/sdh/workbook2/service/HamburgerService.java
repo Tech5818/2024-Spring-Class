@@ -50,4 +50,12 @@ public final class HamburgerService {
         }
 
     }
+
+    // [메소드 조건] 이름은 "removeHamburger"
+    // [메소드 조건] 접근 제어 지시자는 "public"
+    // [메소드 조건] 리턴 타입은 "void"
+    public void removeHamburger(final String hamburgerName) {
+        Hamburger hamburger = new Hamburger(hamburgerName, 0, null, false, false);
+        this.hamburgerRepository.deleteHamburger(hamburger);
+    }
 }

@@ -24,8 +24,20 @@ const pageAfterLoaded = () => {
         return hamburgerMenus
     }
 
-    const createElement = (element) => {
-        return document.createElement(element)
+    const deleteHamburgerMenu = async (hamburgerName) => {
+        // hamburgerName = encodeURIComponent(hamburgerName)
+
+        const url = `lotteria-delete-menu?hamburgerName=${hamburgerName}`
+
+        deleteHamburger = await  fetch(url, {method: "delete"}).then(data => data.json())
+
+        return deleteHamburger;
+    }
+
+    const createElement = (element, classNames = []) => {
+        const returnElement = document.createElement(element)
+        setClassName(returnElement, classNames)
+        return returnElement
     }
 
     const setClassName = (element, classNames) => {
@@ -34,16 +46,29 @@ const pageAfterLoaded = () => {
         })
     }
 
+
+
     const createHamburgerBox = (src, name, price) => {
         // CreateElement
         const HamburgerBox = createElement("div")
         const HamburgerImage = createElement("img")
+        const HamburgerInfoBox = createElement("div")
+        const HamburgerNamePriceBox = createElement("div")
         const HamburgerName = createElement("p")
         const HamburgerPrice = createElement("p")
+        const TrashBox = createElement("div", ["trash-box"])
+        const Trash = createElement("div", ["trash"])
+        const TrashTop = createElement("div", ["trash-top"])
+        const TrashBottom = createElement("div", ["trash-btm"])
+        const TrashLines = createElement("div", ["trash-lines"])
+        const TrashLine1 = createElement("div", ["trash-line"])
+        const TrashLine2 = createElement("div", ["trash-line"])
 
         // Defiend ClassName
         setClassName(HamburgerBox, ['hamburger-box']);
         setClassName(HamburgerImage, ['hamburger-image'])
+        setClassName(HamburgerInfoBox, ["hamburger-info-box"])
+        setClassName(HamburgerNamePriceBox, ["hamburger-name-price-box"])
         setClassName(HamburgerName, ["hamburger-data", "hamburger-name"])
         setClassName(HamburgerPrice, ["hamburger-data", "hamburger-price"])
 
@@ -56,14 +81,34 @@ const pageAfterLoaded = () => {
         HamburgerPrice.textContent = `${price}원`;
 
         // AssemblyElement
+        TrashLines.append(TrashLine1)
+        TrashLines.append(TrashLine2)
+        TrashBottom.append(TrashLines)
+        TrashBox.append(Trash)
+        TrashBox.append(TrashTop)
+        TrashBox.append(TrashBottom)
+
+        TrashBox.addEventListener("click", (e) => {
+
+            deleteHamburgerMenu(name);
+            alert(name)
+            painMenus()
+        })
+
         HamburgerBox.append(HamburgerImage)
-        HamburgerBox.append(HamburgerName)
-        HamburgerBox.append(HamburgerPrice)
+        HamburgerNamePriceBox.append(HamburgerName)
+        HamburgerNamePriceBox.append(HamburgerPrice)
+        HamburgerInfoBox.append(HamburgerNamePriceBox)
+        HamburgerInfoBox.append(TrashBox)
+        HamburgerBox.append(HamburgerInfoBox)
+
+
+
 
         return HamburgerBox
     }
 
-    const painMenus = async (searchMenu = "") => {
+     async function painMenus(searchMenu = "")  {
         const hamburgerMenus =  await getHamburgerMenus(searchMenu);
 
         ListBox.replaceChildren()
