@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-@Repository
+
 public final class LotteriaHamburgerRepository implements HamburgerRepository, InitializingBean {
 
     private final ObjectMapper objectMapper;
